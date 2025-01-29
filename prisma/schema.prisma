@@ -7,30 +7,22 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User {
-  id           String   @id @default(uuid())
-  name         String
-  email        String
-  password     String  
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
-}
-
 model Projeto {
-  id           String     @id @default(uuid())
-  name         String
-  description  String
-  fornecedorId String
-  fornecedor   Fornecedor @relation(fields: [fornecedorId], references: [id])
-  createdAt    DateTime   @default(now())
-  updatedAt    DateTime   @updatedAt
+  id          String     @id @default(uuid())
+  name        String
+  userId      String
+  feedback    Feedback[]
+  description String
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
 }
 
-model Fornecedor {
-  id        String    @id @default(uuid())
-  name      String
-  projetos  Projeto[]
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
+model Feedback {
+  id        String   @id @default(uuid())
+  feedback  String
+  userId    String
+  projectId String
+  project   Projeto  @relation(fields: [projectId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
-

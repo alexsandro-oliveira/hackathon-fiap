@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
-
+import { ClerkProvider } from '@clerk/nextjs'
+import { dark } from '@clerk/themes'
 import './globals.css'
 
 export const metadata: Metadata = {
@@ -14,7 +15,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className="dark">{children}</body>
+      <body className="dark">
+        <ClerkProvider appearance={{ baseTheme: dark }}>
+          {children}
+        </ClerkProvider>
+      </body>
     </html>
   )
 }

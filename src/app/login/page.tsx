@@ -1,75 +1,31 @@
-'use client'
-
-import { signIn } from 'next-auth/react'
-
-import Link from 'next/link'
-
-import { useSearchParams } from 'next/navigation'
-import { CardContent, CardFooter } from '../_components/ui/card'
-import { Label } from '../_components/ui/label'
-import { Input } from '../_components/ui/input'
+import { SignInButton } from '@clerk/nextjs'
 import { Button } from '../_components/ui/button'
+import { LogInIcon } from 'lucide-react'
+import { auth } from '@clerk/nextjs/server'
+import { redirect } from 'next/navigation'
 
-export default function SigninForm() {
-  const searchParams = useSearchParams()
-
-  const error = searchParams.get('error')
-
-  async function handleLogin(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault()
-    const formData = new FormData(e.currentTarget)
-
-    const data = {
-      name: formData.get('name'),
-      email: formData.get('email'),
-      password: formData.get('password'),
-    }
-
-    signIn('credentials', {
-      ...data,
-      callbackUrl: '/',
-    })
+const LoginPage = async () => {
+  const { userId } = await auth()
+  if (userId) {
+    redirect('/fornecedor')
   }
 
   return (
-    <form onSubmit={handleLogin}>
-      <CardContent className="space-y-4">
-        <div className="space-y-2">
-          <Label htmlFor="email">E-mail</Label>
-          <Input
-            name="email"
-            id="email"
-            type="email"
-            placeholder="Digite seu e-mail"
-            required
-          />
-        </div>
-        <div className="space-y-2">
-          <Label htmlFor="password">Senha</Label>
-          <Input
-            name="password"
-            id="password"
-            type="password"
-            placeholder="Digite sua senha"
-            required
-          />
-        </div>
-      </CardContent>
-      <CardFooter className="flex flex-col gap-3">
-        <div className="flex w-full justify-between gap-4">
-          <Button className="w-full" variant="outline" asChild>
-            <Link href="/">Voltar</Link>
-          </Button>
-          <Button className="w-full" type="submit">
-            Entrar
-          </Button>
-        </div>
-        {error === 'CredentialsSignin' && (
-          <p className="text-center text-destructive">
-            Credenciais inválidas, tente novamente.
-          </p>
-        )}
-      </CardFooter>
-    </form>
+    <div className="mx-auto flex h-full max-w-[550px] flex-col justify-center p-8">
+      <h1 className="mb-3 text-4xl font-bold">Bem-vindo</h1>
+      <p className="mb-8 text-muted-foreground">
+        O Hackathon é uma plataforma para cadastrar e disponibilizar seus
+        projetos para as escolas.
+      </p>
+
+      <SignInButton>
+        <Button variant="outline">
+          <LogInIcon className="mr-2" />
+          Fazer login ou criar conta
+        </Button>
+      </SignInButton>
+    </div>
   )
 }
+
+export default LoginPage

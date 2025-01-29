@@ -1,6 +1,11 @@
+import { auth } from '@clerk/nextjs/server'
 import Navbar from '../_components/nav-bar'
 
-export default function Home() {
+const HomePage = async () => {
+  const { userId } = await auth()
+  if (userId) {
+    // redirect('/fornecedor')
+  }
   return (
     <>
       <Navbar />
@@ -9,3 +14,5 @@ export default function Home() {
     </>
   )
 }
+
+export default HomePage

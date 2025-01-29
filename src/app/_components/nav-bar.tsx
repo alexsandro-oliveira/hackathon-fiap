@@ -1,11 +1,12 @@
 'use client'
 
+import { UserButton } from '@clerk/nextjs'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { Button } from './ui/button'
 
 const Navbar = () => {
   const pathname = usePathname()
+
   return (
     <nav className="flex justify-between border-b border-solid px-8 py-4">
       {/* ESQUERDA */}
@@ -45,7 +46,7 @@ const Navbar = () => {
         </Link>
       </div>
       <div>
-        <Button variant="ghost">Logar</Button>
+        <UserButton showName />
       </div>
     </nav>
   )

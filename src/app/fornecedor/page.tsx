@@ -1,10 +1,19 @@
+import { auth } from '@clerk/nextjs/server'
+import AddProjectButton from '../_components/add-project-button'
 import Navbar from '../_components/nav-bar'
 import ProjectItem from '../_components/project-item'
-import { Button } from '../_components/ui/button'
 import { db } from '../_lib/prisma'
+import { redirect } from 'next/navigation'
 
 const FornecedorPage = async () => {
-  const projetos = await db.projeto.findMany({})
+  const { userId } = await auth()
+  if (!userId) {
+    redirect('/login')
+  }
+
+  const projetos = await db.projeto.findMany({
+    where: {},
+  })
 
   return (
     <>
@@ -12,7 +21,7 @@ const FornecedorPage = async () => {
       <div className="space-y-6 overflow-hidden p-6">
         <div className="flex w-full items-center justify-between">
           <h1 className="text-2xl font-bold">Meus Projetos</h1>
-          <Button>Novo Projeto</Button>
+          <AddProjectButton />
         </div>
 
         {projetos.map((projeto) => (
