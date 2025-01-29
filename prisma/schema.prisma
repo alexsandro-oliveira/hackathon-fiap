@@ -11,33 +11,7 @@ model User {
   id           String   @id @default(uuid())
   name         String
   email        String
-  password     String
-  isProfessor  Boolean
-  isEstudante  Boolean
-  isFornecedor Boolean
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
-}
-
-model Professor {
-  id        String   @id @default(uuid())
-  name      String
-  turmaId   String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-}
-
-model Turma {
-  id        String   @id @default(uuid())
-  name      String
-  createdAt DateTime @default(now())
-}
-
-model Estudante {
-  id           String   @id @default(uuid())
-  name         String
-  turmaId      String
-  ratingsGiven Rating[]
+  password     String  
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
 }
@@ -60,11 +34,3 @@ model Fornecedor {
   updatedAt DateTime  @updatedAt
 }
 
-model Rating {
-  id          String    @id @default(uuid())
-  rating      Int
-  estudanteId String
-  estudante   Estudante @relation(fields: [estudanteId], references: [id])
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
-}

@@ -2,6 +2,7 @@
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
+import { Button } from './ui/button'
 
 const Navbar = () => {
   const pathname = usePathname()
@@ -42,6 +43,9 @@ const Navbar = () => {
           }>
           Projetos
         </Link>
+      </div>
+      <div>
+        <Button variant="ghost">Logar</Button>
       </div>
     </nav>
   )

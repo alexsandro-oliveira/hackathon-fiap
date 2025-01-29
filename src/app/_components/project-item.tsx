@@ -1,0 +1,36 @@
+import type { Projeto } from '@prisma/client'
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from './ui/card'
+import { ptBR } from 'date-fns/locale'
+import { formatDistance } from 'date-fns'
+import { Label } from './ui/label'
+
+interface ProjectItemProps {
+  project: Projeto
+}
+
+const ProjectItem = ({ project }: ProjectItemProps) => {
+  console.log(project)
+  return (
+    <Card>
+      <CardHeader>
+        <Label>Titulo:</Label>
+        <CardTitle className="text-xl">{project.name}</CardTitle>
+      </CardHeader>
+      <CardContent className="space-y-2">
+        <Label>Descrição:</Label>
+        <p className="line-clamp-3 overflow-ellipsis">{project.description}</p>
+      </CardContent>
+      <CardFooter className="gap-1 text-xs justify-end">
+        <p>Criado</p>
+        <p>
+          {formatDistance(new Date(), new Date(project.createdAt), {
+            locale: ptBR,
+          })}{' '}
+          atrás
+        </p>
+      </CardFooter>
+    </Card>
+  )
+}
+
+export default ProjectItem

@@ -1,13 +1,25 @@
-import { NewProjectForm } from '../_components/NewProjectForm'
+import Navbar from '../_components/nav-bar'
+import ProjectItem from '../_components/project-item'
+import { Button } from '../_components/ui/button'
+import { db } from '../_lib/prisma'
 
-const FornecedorPage = () => {
+const FornecedorPage = async () => {
+  const projetos = await db.projeto.findMany({})
+
   return (
-    <div className="p-6">
-      <div className="flex flex-col items-center justify-center mb-6">
-        Pagina do Fornecedor para Cadastro do Projeto
+    <>
+      <Navbar />
+      <div className="space-y-6 overflow-hidden p-6">
+        <div className="flex w-full items-center justify-between">
+          <h1 className="text-2xl font-bold">Meus Projetos</h1>
+          <Button>Novo Projeto</Button>
+        </div>
+
+        {projetos.map((projeto) => (
+          <ProjectItem key={projeto.id} project={projeto} />
+        ))}
       </div>
-      <NewProjectForm />
-    </div>
+    </>
   )
 }
 

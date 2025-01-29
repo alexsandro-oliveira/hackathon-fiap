@@ -1,19 +1,21 @@
+import Navbar from '../_components/nav-bar'
+import { DataTable } from '../_components/ui/data-table'
 import { db } from '../_lib/prisma'
+import { projectColumns } from './_columns'
 
 const ProjetosPage = async () => {
   const projetos = await db.projeto.findMany({})
 
   return (
-    <div>
-      {projetos.length === 0 && <p>Nenhum projeto encontrado.</p>}
-
-      {projetos.map((projeto) => (
-        <div key={projeto.id}>
-          <p>{projeto.name}</p>
-          <p>{projeto.description}</p>
+    <>
+      <Navbar />
+      <div className="p-6 space-y-6">
+        <h1 className="text-2xl font-bold">Projetos</h1>
+        <div className="flex h-full flex-col space-y-6 overflow-hidden">
+          <DataTable columns={projectColumns} data={projetos} />
         </div>
-      ))}
-    </div>
+      </div>
+    </>
   )
 }
 
