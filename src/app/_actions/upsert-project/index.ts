@@ -23,5 +23,5 @@ export const upsertProject = async (params: UpsertProjectParams) => {
     create: { ...params, userId },
     where: { id: params.id ?? '' },
   })
-  revalidatePath('/transactions')
+  revalidatePath('/projetos')
 }

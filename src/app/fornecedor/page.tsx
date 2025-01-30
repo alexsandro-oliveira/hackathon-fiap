@@ -12,7 +12,9 @@ const FornecedorPage = async () => {
   }
 
   const projetos = await db.projeto.findMany({
-    where: {},
+    where: {
+      userId,
+    },
   })
 
   return (
@@ -23,10 +25,13 @@ const FornecedorPage = async () => {
           <h1 className="text-2xl font-bold">Meus Projetos</h1>
           <AddProjectButton />
         </div>
-
-        {projetos.map((projeto) => (
-          <ProjectItem key={projeto.id} project={projeto} />
-        ))}
+        {projetos.length > 0 ? (
+          projetos.map((projeto) => (
+            <ProjectItem key={projeto.id} project={projeto} />
+          ))
+        ) : (
+          <p>Você não tem nenhum projeto</p>
+        )}
       </div>
     </>
   )
