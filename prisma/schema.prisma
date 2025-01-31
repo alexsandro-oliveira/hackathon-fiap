@@ -10,11 +10,12 @@ datasource db {
 model Projeto {
   id          String     @id @default(uuid())
   name        String
-  userId      String
+  userId      String  
   feedback    Feedback[]
   description String
   createdAt   DateTime   @default(now())
   updatedAt   DateTime   @updatedAt
+  fornecedor  String
 }
 
 model Feedback {

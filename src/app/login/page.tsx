@@ -3,6 +3,7 @@ import { Button } from '../_components/ui/button'
 import { LogInIcon } from 'lucide-react'
 import { auth } from '@clerk/nextjs/server'
 import { redirect } from 'next/navigation'
+import Link from 'next/link'
 
 const LoginPage = async () => {
   const { userId } = await auth()
@@ -24,6 +25,9 @@ const LoginPage = async () => {
           Fazer login ou criar conta
         </Button>
       </SignInButton>
+      <Button className="mt-4" variant="outline" asChild>
+        <Link href="/">Voltar</Link>
+      </Button>
     </div>
   )
 }

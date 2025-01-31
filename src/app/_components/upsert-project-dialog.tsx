@@ -32,6 +32,7 @@ interface UpsertProjectDialogProps {
 }
 
 const formSchema = z.object({
+  fornecedor: z.string().trim().min(1, { message: 'Fornecedor é obrigatório' }),
   name: z.string().trim().min(1, { message: 'Nome é obrigatório' }),
   description: z.string().trim().min(5, { message: 'Descrição é obrigatório' }),
 })
@@ -47,6 +48,7 @@ const UpsertProjectDialog = ({
   const form = useForm<FormSchema>({
     resolver: zodResolver(formSchema),
     defaultValues: defaultValues ?? {
+      fornecedor: '',
       name: '',
       description: '',
     },
@@ -84,12 +86,29 @@ const UpsertProjectDialog = ({
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
             <FormField
               control={form.control}
+              name="fornecedor"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Fornecedor</FormLabel>
+                  <FormControl>
+                    <Input placeholder="Digite o fornecedor..." {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
               name="name"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Nome</FormLabel>
+                  <FormLabel>Título</FormLabel>
                   <FormControl>
-                    <Input placeholder="Digite o nome..." {...field} />
+                    <Input
+                      placeholder="Digite o título do projeto..."
+                      {...field}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -105,7 +124,7 @@ const UpsertProjectDialog = ({
                   <FormControl>
                     <Textarea
                       className="h-[250px]"
-                      placeholder="Digite seu texto..."
+                      placeholder="Descreva seu projeto..."
                       {...field}
                     />
                   </FormControl>

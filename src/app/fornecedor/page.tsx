@@ -4,6 +4,7 @@ import Navbar from '../_components/nav-bar'
 import ProjectItem from '../_components/project-item'
 import { db } from '../_lib/prisma'
 import { redirect } from 'next/navigation'
+import Search from '../_components/search'
 
 const FornecedorPage = async () => {
   const { userId } = await auth()
@@ -25,12 +26,15 @@ const FornecedorPage = async () => {
           <h1 className="text-2xl font-bold">Meus Projetos</h1>
           <AddProjectButton />
         </div>
+        <div>
+          <Search />
+        </div>
         {projetos.length > 0 ? (
           projetos.map((projeto) => (
             <ProjectItem key={projeto.id} project={projeto} />
           ))
         ) : (
-          <p>Você não tem nenhum projeto</p>
+          <p>Você não tem nenhum projeto cadastrado.</p>
         )}
       </div>
     </>

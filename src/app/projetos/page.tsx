@@ -1,22 +1,54 @@
+import { auth } from '@clerk/nextjs/server'
 import Navbar from '../_components/nav-bar'
-import { DataTable } from '../_components/ui/data-table'
 import { db } from '../_lib/prisma'
-import { projectColumns } from './_columns'
+import NavbarNoAuth from '../_components/nav-bar-no-auth'
+import { Button } from '../_components/ui/button'
+import Link from 'next/link'
+import { ChevronLeftIcon } from 'lucide-react'
+import ProjectItem from '../_components/project-item'
 
-const ProjetosPage = async () => {
-  const projetos = await db.projeto.findMany({})
+interface ProjectsPageProps {
+  searchParams: {
+    search?: string
+  }
+}
+
+const ProjectsPage = async ({ searchParams }: ProjectsPageProps) => {
+  const projetos = await db.projeto.findMany({
+    where: {
+      name: {
+        contains: searchParams?.search,
+        mode: 'insensitive',
+      },
+    },
+  })
+  const { userId } = await auth()
 
   return (
-    <>
-      <Navbar />
-      <div className="p-6 space-y-6">
-        <h1 className="text-2xl font-bold">Projetos</h1>
-        <div className="flex h-full flex-col space-y-6 overflow-hidden">
-          <DataTable columns={projectColumns} data={projetos} />
+    <div>
+      {userId ? <Navbar /> : <NavbarNoAuth />}
+
+      <div className="space-y-6 overflow-hidden p-6">
+        <Button>
+          <Link href={userId ? '/fornecedor' : '/'}>
+            <div className="flex items-center space-x-2">
+              <ChevronLeftIcon />
+              Voltar
+            </div>
+          </Link>
+        </Button>
+        <h2 className="mb-3 mt-6 text-xs font-bold uppercase text-gray-400">
+          Resultados para &quot;{searchParams?.search}
+          &quot;
+        </h2>
+        <div className="">
+          {projetos.map((projeto) => (
+            <ProjectItem key={projeto.id} project={projeto} />
+          ))}
         </div>
       </div>
-    </>
+    </div>
   )
 }
 
-export default ProjetosPage
+export default ProjectsPage
