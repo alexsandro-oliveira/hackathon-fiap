@@ -5,7 +5,7 @@ import { formatDistance } from 'date-fns'
 import { Label } from './ui/label'
 import Link from 'next/link'
 import { auth } from '@clerk/nextjs/server'
-import GetUserName from '../_data/get-userName-clerk'
+import { formatDeadline } from '../_utils/format'
 
 interface ProjectItemProps {
   project: Projeto
@@ -16,40 +16,76 @@ const ProjectItem = async ({ project }: ProjectItemProps) => {
 
   return (
     <>
-      <Card>
-        <Link href={`/fornecedor/${project.id}`}>
-          <CardHeader>
-            <Label>Titulo:</Label>
-            <CardTitle className="text-xl">{project.name}</CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-1">
-            <Label>Descrição:</Label>
-            <p className="line-clamp-2 overflow-ellipsis">
-              {project.description}
-            </p>
-          </CardContent>
-          <CardFooter className="flex justify-between">
-            {!userId && (
+      {userId ? (
+        <Card>
+          <Link href={`/fornecedor/${project.id}`}>
+            <CardHeader>
+              <Label>Titulo:</Label>
+              <CardTitle className="text-xl">{project.name}</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-1">
+              <Label>Descrição:</Label>
+              <p className="line-clamp-2 overflow-ellipsis">
+                {project.description}
+              </p>
+            </CardContent>
+            <CardFooter className="flex justify-between">
               <div>
+                <Label>Prazo:</Label>
+                <p className="text-sm">{formatDeadline(project.deadline)} </p>
+              </div>
+              <div className="text-sm">
+                <p>
+                  Criado{' '}
+                  {formatDistance(new Date(), new Date(project.createdAt), {
+                    locale: ptBR,
+                  })}{' '}
+                  atrás
+                </p>
+              </div>
+            </CardFooter>
+          </Link>
+        </Card>
+      ) : (
+        <Card>
+          <Link href={`/fornecedor/${project.id}`}>
+            <CardHeader>
+              <Label>Titulo:</Label>
+              <CardTitle className="text-xl">{project.name}</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-3">
+              <div>
+                <Label>Descrição:</Label>
+                <p className="line-clamp-2 overflow-ellipsis">
+                  {project.description}
+                </p>
+              </div>
+              <div className="text-sm">
                 <Label>Fornecedor:</Label>
                 <p>{project.fornecedor}</p>
               </div>
-            )}
-            <div className="flex flex-row gap-1 text-xs justify-end">
-              <p>Criado</p>
-              <p>
+              <div className="text-sm">
+                <Label>Contato:</Label>
+                <p>{project.phones}</p>
+              </div>
+            </CardContent>
+            <CardFooter className="flex justify-between items-center">
+              <div className="text-sm">
+                <Label>Prazo:</Label>
+                <p className="text-sm">{formatDeadline(project.deadline)} </p>
+              </div>
+
+              <p className="text-sm">
+                Criado{' '}
                 {formatDistance(new Date(), new Date(project.createdAt), {
                   locale: ptBR,
                 })}{' '}
                 atrás
               </p>
-              <p>
-                por <GetUserName />
-              </p>
-            </div>
-          </CardFooter>
-        </Link>
-      </Card>
+            </CardFooter>
+          </Link>
+        </Card>
+      )}
     </>
   )
 }

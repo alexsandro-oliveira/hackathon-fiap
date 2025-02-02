@@ -4,6 +4,7 @@ import { LogInIcon } from 'lucide-react'
 import { auth } from '@clerk/nextjs/server'
 import { redirect } from 'next/navigation'
 import Link from 'next/link'
+import Image from 'next/image'
 
 const LoginPage = async () => {
   const { userId } = await auth()
@@ -12,11 +13,14 @@ const LoginPage = async () => {
   }
 
   return (
-    <div className="mx-auto flex h-full max-w-[550px] flex-col justify-center p-8">
+    <div className="flex h-full max-w-[550px] flex-col p-8 justify-center mx-auto">
+      <div className="flex justify-center mb-8">
+        <Image src="/logo.svg" alt="Logo" width={300} height={60} />
+      </div>
       <h1 className="mb-3 text-4xl font-bold">Bem-vindo</h1>
       <p className="mb-8 text-muted-foreground">
-        O Hackathon é uma plataforma para cadastrar e disponibilizar seus
-        projetos para as escolas.
+        O CONEXÃO Escola é uma plataforma para cadastrar e disponibilizar seus
+        projetos, aproximando fornecedores e escolas.
       </p>
 
       <SignInButton>

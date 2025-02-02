@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link'
+import Image from 'next/image'
 
 const NavbarNoAuth = () => {
   return (
@@ -10,6 +11,7 @@ const NavbarNoAuth = () => {
         <h2 className="font-bold text-2xl">ESCOLA</h2>
       </div>
 
+      <Image src="/logo.svg" alt="Logo" width={80} height={60} />
       <div className="flex items-center gap-10">
         <Link href="/" className={'font-bold text-primary'}>
           Professor

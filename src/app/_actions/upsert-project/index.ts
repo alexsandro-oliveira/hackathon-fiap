@@ -10,6 +10,7 @@ interface UpsertProjectParams {
   id?: string
   name: string
   description: string
+  fornecedor: string
 }
 
 export const upsertProject = async (params: UpsertProjectParams) => {
@@ -23,5 +24,5 @@ export const upsertProject = async (params: UpsertProjectParams) => {
     create: { ...params, userId },
     where: { id: params.id ?? '' },
   })
-  revalidatePath('/projetos')
+  revalidatePath('/fornecedor')
 }

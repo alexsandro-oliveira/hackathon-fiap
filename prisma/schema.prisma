@@ -8,22 +8,30 @@ datasource db {
 }
 
 model Projeto {
-  id          String     @id @default(uuid())
+  id          String       @id @default(uuid())
   name        String
-  userId      String  
+  userId      String
+  phones      String
+  region      String
   feedback    Feedback[]
   description String
-  createdAt   DateTime   @default(now())
-  updatedAt   DateTime   @updatedAt
+  deadline    DeadlineOpton
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
   fornecedor  String
 }
 
 model Feedback {
   id        String   @id @default(uuid())
   feedback  String
-  userId    String
+  name      String
   projectId String
   project   Projeto  @relation(fields: [projectId], references: [id])
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+enum DeadlineOpton {
+  month_3
+  month_6
+  month_12
 }

@@ -41,7 +41,7 @@ const ProjectsPage = async ({ searchParams }: ProjectsPageProps) => {
           Resultados para &quot;{searchParams?.search}
           &quot;
         </h2>
-        <div className="">
+        <div className="space-y-6">
           {projetos.map((projeto) => (
             <ProjectItem key={projeto.id} project={projeto} />
           ))}

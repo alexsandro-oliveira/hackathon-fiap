@@ -23,6 +23,15 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { Textarea } from './ui/textarea'
 import { upsertProject } from '../_actions/upsert-project'
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from './ui/select'
+import { DEADLINE_OPTIONS } from '../_constants/Deadline_options'
+import { DeadlineOpton } from '@prisma/client'
 
 interface UpsertProjectDialogProps {
   isOpen: boolean
@@ -31,10 +40,21 @@ interface UpsertProjectDialogProps {
   projectId?: string
 }
 
+const phoneRegex = new RegExp(
+  /^1\d\d(\d\d)?$|^0800 ?\d{3} ?\d{4}$|^(\(0?([1-9a-zA-Z][0-9a-zA-Z])?[1-9]\d\) ?|0?([1-9a-zA-Z][0-9a-zA-Z])?[1-9]\d[ .-]?)?(9|9[ .-])?[2-9]\d{3}[ .-]?\d{4}$/gm
+)
+
 const formSchema = z.object({
   fornecedor: z.string().trim().min(1, { message: 'Fornecedor é obrigatório' }),
   name: z.string().trim().min(1, { message: 'Nome é obrigatório' }),
   description: z.string().trim().min(5, { message: 'Descrição é obrigatório' }),
+  phones: z
+    .string()
+    .regex(phoneRegex, { message: 'Formato do número de telefone incorreto' }),
+  region: z.string().trim().min(1, { message: 'Região é obrigatório' }),
+  deadline: z.nativeEnum(DeadlineOpton, {
+    required_error: 'Prazo é obrigatório',
+  }),
 })
 
 type FormSchema = z.infer<typeof formSchema>
@@ -49,6 +69,8 @@ const UpsertProjectDialog = ({
     resolver: zodResolver(formSchema),
     defaultValues: defaultValues ?? {
       fornecedor: '',
+      phones: '',
+      region: '',
       name: '',
       description: '',
     },
@@ -100,6 +122,37 @@ const UpsertProjectDialog = ({
 
             <FormField
               control={form.control}
+              name="phones"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Telefone</FormLabel>
+                  <FormControl>
+                    <Input placeholder="(99) 99999-9999" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="region"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Região de atendimento</FormLabel>
+                  <FormControl>
+                    <Input
+                      placeholder="Digite a região de atendimento..."
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
               name="name"
               render={({ field }) => (
                 <FormItem>
@@ -123,11 +176,36 @@ const UpsertProjectDialog = ({
                   <FormLabel>Descrição</FormLabel>
                   <FormControl>
                     <Textarea
-                      className="h-[250px]"
+                      className="h-[150px]"
                       placeholder="Descreva seu projeto..."
                       {...field}
                     />
                   </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="deadline"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Prazo do projeto</FormLabel>
+                  <Select onValueChange={field.onChange}>
+                    <FormControl>
+                      <SelectTrigger>
+                        <SelectValue />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      {DEADLINE_OPTIONS.map((option) => (
+                        <SelectItem key={option.value} value={option.value}>
+                          {option.label}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
                   <FormMessage />
                 </FormItem>
               )}
