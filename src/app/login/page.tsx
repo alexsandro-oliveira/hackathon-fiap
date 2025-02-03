@@ -19,8 +19,11 @@ const LoginPage = async () => {
       </div>
       <h1 className="mb-3 text-4xl font-bold">Bem-vindo</h1>
       <p className="mb-8 text-muted-foreground">
-        O CONEXÃO Escola é uma plataforma para cadastrar e disponibilizar seus
-        projetos, aproximando fornecedores e escolas.
+        O CONEXÃO Escola é uma plataforma online que oferece uma solução
+        inovadora para conectar profissionais voluntários ao ambiente escolar
+        público brasileiro, criando uma ponte entre aqueles que desejam
+        compartilhar conhecimentos e habilidades com estudantes que podem se
+        beneficiar dessas experiências
       </p>
 
       <SignInButton>
