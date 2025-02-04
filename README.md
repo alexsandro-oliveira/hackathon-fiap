@@ -76,7 +76,7 @@ Priorizamos a construção de um MVP com as funcionalidades essenciais, que são
 - Mecanismo de busca e filtros
 - Painel de controle para fornecedores/voluntários
 
-## 3. Escopo do Projeto
+## Escopo do Projeto
 
 ### 1. **Frontend (Interface do Usuário/Professor e Dashboard do voluntário/fornecedor)**
 
