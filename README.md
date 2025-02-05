@@ -134,8 +134,17 @@ Instale com npm install
   # Instale as dependências
   $ npm install
 
-  # Rode o banco de dados via Docker
+  # Copiar o arquivo com os dados de conexão e demais variáveis ambiente
+  $ .env.example .env
+
+  # Para obter as variáveis de integração com o Clerk, basta seguir os passos do arquivo da pasta `docs`.
+  $ getting-started-with-clerk.md
+
+  # Subir o serviço do PostgreSQL via docker (caso não tenha instalado o PostgreSQL em seu computador)
   $ docker-compose up -d
+
+  # Rodar as migrations do prisma
+  $ npx prisma migrate dev
 
   # Execute a aplicação em modo de desenvolvimento
   $ npm run dev
