@@ -39,7 +39,7 @@ const ProjectItemDetail = async ({ project }: ProjectItemDetailProps) => {
             </CardContent>
             <CardFooter className="flex justify-between">
               <div>
-                <Label>Prazo:</Label>
+                <Label>Prazo de validade:</Label>
                 <p className="text-sm">{formatDeadline(project.deadline)} </p>
               </div>
               <div className="text-sm">
@@ -77,7 +77,7 @@ const ProjectItemDetail = async ({ project }: ProjectItemDetailProps) => {
             </CardContent>
             <CardFooter className="flex justify-between items-center">
               <div className="text-sm">
-                <Label>Prazo:</Label>
+                <Label>Prazo de validade:</Label>
                 <p className="text-sm">{formatDeadline(project.deadline)} </p>
               </div>
 

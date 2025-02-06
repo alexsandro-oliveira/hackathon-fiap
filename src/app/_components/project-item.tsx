@@ -31,7 +31,7 @@ const ProjectItem = async ({ project }: ProjectItemProps) => {
             </CardContent>
             <CardFooter className="flex justify-between">
               <div>
-                <Label>Prazo:</Label>
+                <Label>Prazo de validade:</Label>
                 <p className="text-sm">{formatDeadline(project.deadline)} </p>
               </div>
               <div className="text-sm">
