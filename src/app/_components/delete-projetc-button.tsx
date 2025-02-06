@@ -12,7 +12,7 @@ import {
   AlertDialogTrigger,
 } from '@/app/_components/ui/alert-dialog'
 import { Button } from '@/app/_components/ui/button'
-import { toast } from 'sonner'
+
 import { deleteProject } from '../_actions/delete-project'
 
 interface DeleteProjectButtonProps {
@@ -23,10 +23,8 @@ const DeleteProjectButton = ({ projectId }: DeleteProjectButtonProps) => {
   const handleConfirmDeleteClick = async () => {
     try {
       await deleteProject({ projectId })
-      toast.success('Projeto deletado com sucesso!')
     } catch (error) {
       console.error(error)
-      toast.error('Ocorreu um erro ao deletar o projeto.')
     }
   }
   return (

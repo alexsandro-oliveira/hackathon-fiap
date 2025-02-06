@@ -32,6 +32,7 @@ import {
 } from './ui/select'
 import { DEADLINE_OPTIONS } from '../_constants/Deadline_options'
 import { DeadlineOpton } from '@prisma/client'
+import { toast } from 'sonner'
 
 interface UpsertProjectDialogProps {
   isOpen: boolean
@@ -81,8 +82,10 @@ const UpsertProjectDialog = ({
       await upsertProject({ ...data, id: projectId })
       setIsOpen(false)
       form.reset()
+      toast.success('Projeto criado ou atualizado com sucesso')
     } catch (error) {
       console.error(error)
+      toast.error('Erro ao criar ou atualizar projeto')
     }
   }
 
@@ -191,7 +194,7 @@ const UpsertProjectDialog = ({
               name="deadline"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Prazo do projeto</FormLabel>
+                  <FormLabel>Prazo de validade do projeto</FormLabel>
                   <Select onValueChange={field.onChange}>
                     <FormControl>
                       <SelectTrigger>

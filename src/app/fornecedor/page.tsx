@@ -21,7 +21,7 @@ const FornecedorPage = async () => {
   return (
     <div className="w-full">
       <Navbar />
-      <main className="overflow-y-auto">
+      <main>
         <div className="space-y-6 p-6">
           <div className="flex w-full items-center justify-between">
             <h1 className="text-2xl font-bold">Meus Projetos</h1>
