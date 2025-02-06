@@ -190,7 +190,7 @@ Para o futuro, teremos as seguintes implementações:
 
 - autenticação de todas as rotas por roles
 - inclusão do sistema de reviews/feedback,
-- opção para o forncedor adicionar imagens de seus projetos que pode ser armazenado na S3 da AWS
+- opção para o fornecedor adicionar imagens de seus projetos que pode ser armazenado na S3 da AWS
 - desenvolvimento de funcionalidades para análise de dados
 - inclusão de novas funcionalidades que enriqueçam o sistema para todos os usuários e revolucionem a relação entre escolas e voluntários.
 
