@@ -186,7 +186,13 @@ Esse projeto nos deu oportunidade de aplicar e aperfeiçoar os conhecimentos adq
 
 ### Próximos passos
 
-Para o futuro, iremos realizar a implementação de autenticação de todas as rotas por roles, a inclusão do sistema de reviews/feedback, o desenvolvimento de funcionalidades para análise de dados e a inclusão de novas funcionalidades que enriqueçam o sistema para todos os usuários e revolucionem a relação entre escolas e voluntários.
+Para o futuro, teremos as seguintes implementações:
+
+- autenticação de todas as rotas por roles
+- inclusão do sistema de reviews/feedback,
+- opção para o forncedor adicionar imagens de seus projetos que pode ser armazenado na S3 da AWS
+- desenvolvimento de funcionalidades para análise de dados
+- inclusão de novas funcionalidades que enriqueçam o sistema para todos os usuários e revolucionem a relação entre escolas e voluntários.
 
 ## Autores
 
