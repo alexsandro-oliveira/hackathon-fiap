@@ -1,7 +1,7 @@
 import type { Projeto } from '@prisma/client'
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from './ui/card'
 import { ptBR } from 'date-fns/locale'
-import { formatDistance } from 'date-fns'
+import { format, formatDistance } from 'date-fns'
 import { Label } from './ui/label'
 import Link from 'next/link'
 import { auth } from '@clerk/nextjs/server'
@@ -43,13 +43,19 @@ const ProjectItemDetail = async ({ project }: ProjectItemDetailProps) => {
                 <p className="text-sm">{formatDeadline(project.deadline)} </p>
               </div>
               <div className="text-sm">
-                <p>
+                <time
+                  className="text-sm"
+                  title={format(
+                    new Date(project.createdAt),
+                    "dd 'de' MMMM 'de' yyyy",
+                    { locale: ptBR }
+                  )}>
                   Criado{' '}
                   {formatDistance(new Date(), new Date(project.createdAt), {
                     locale: ptBR,
                   })}{' '}
                   atrás
-                </p>
+                </time>
               </div>
             </CardFooter>
           </Link>
@@ -81,13 +87,19 @@ const ProjectItemDetail = async ({ project }: ProjectItemDetailProps) => {
                 <p className="text-sm">{formatDeadline(project.deadline)} </p>
               </div>
 
-              <p className="text-sm">
+              <time
+                className="text-sm"
+                title={format(
+                  new Date(project.createdAt),
+                  "dd 'de' MMMM 'de' yyyy",
+                  { locale: ptBR }
+                )}>
                 Criado{' '}
                 {formatDistance(new Date(), new Date(project.createdAt), {
                   locale: ptBR,
                 })}{' '}
                 atrás
-              </p>
+              </time>
             </CardFooter>
           </Link>
         </Card>
