@@ -19,7 +19,7 @@ const ProjectItemPage = async ({
   }
 
   return (
-    <div className="space-y-6 overflow-hidden p-8">
+    <div className="space-y-6 p-8">
       <Button>
         <Link href="/fornecedor">
           <div className="flex items-center space-x-2">

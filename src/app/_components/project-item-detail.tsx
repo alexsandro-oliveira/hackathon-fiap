@@ -7,11 +7,11 @@ import Link from 'next/link'
 import { auth } from '@clerk/nextjs/server'
 import { formatDeadline } from '../_utils/format'
 
-interface ProjectItemProps {
+interface ProjectItemDetailProps {
   project: Projeto
 }
 
-const ProjectItem = async ({ project }: ProjectItemProps) => {
+const ProjectItemDetail = async ({ project }: ProjectItemDetailProps) => {
   const { userId } = await auth()
 
   return (
@@ -23,11 +23,19 @@ const ProjectItem = async ({ project }: ProjectItemProps) => {
               <Label>Titulo:</Label>
               <CardTitle className="text-xl">{project.name}</CardTitle>
             </CardHeader>
-            <CardContent className="space-y-1">
-              <Label>Descrição:</Label>
-              <p className="line-clamp-2 overflow-ellipsis">
-                {project.description}
-              </p>
+            <CardContent className="space-y-3">
+              <div>
+                <Label>Descrição:</Label>
+                <p>{project.description}</p>
+              </div>
+              <div className="text-sm">
+                <Label>Fornecedor:</Label>
+                <p>{project.fornecedor}</p>
+              </div>
+              <div className="text-sm">
+                <Label>Contato:</Label>
+                <p>{project.phones}</p>
+              </div>
             </CardContent>
             <CardFooter className="flex justify-between">
               <div>
@@ -56,16 +64,23 @@ const ProjectItem = async ({ project }: ProjectItemProps) => {
             <CardContent className="space-y-3">
               <div>
                 <Label>Descrição:</Label>
-                <p className="line-clamp-2 overflow-ellipsis">
-                  {project.description}
-                </p>
+                <p>{project.description}</p>
               </div>
-            </CardContent>
-            <CardFooter className="flex justify-between items-center">
               <div className="text-sm">
                 <Label>Fornecedor:</Label>
                 <p>{project.fornecedor}</p>
               </div>
+              <div className="text-sm">
+                <Label>Contato:</Label>
+                <p>{project.phones}</p>
+              </div>
+            </CardContent>
+            <CardFooter className="flex justify-between items-center">
+              <div className="text-sm">
+                <Label>Prazo:</Label>
+                <p className="text-sm">{formatDeadline(project.deadline)} </p>
+              </div>
+
               <p className="text-sm">
                 Criado{' '}
                 {formatDistance(new Date(), new Date(project.createdAt), {
@@ -81,4 +96,4 @@ const ProjectItem = async ({ project }: ProjectItemProps) => {
   )
 }
 
-export default ProjectItem
+export default ProjectItemDetail

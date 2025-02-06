@@ -1,8 +1,9 @@
+import AddFeedBackButton from '@/app/_components/add-feedback-button'
 import DeleteProjectButton from '@/app/_components/delete-projetc-button'
 import EditProjectButton from '@/app/_components/edit-project-button'
 import Navbar from '@/app/_components/nav-bar'
 import NavbarNoAuth from '@/app/_components/nav-bar-no-auth'
-import ProjectItem from '@/app/_components/project-item'
+import ProjectItemDetail from '@/app/_components/project-item-detail'
 import ProjectNotFound from '@/app/_components/project-not-found'
 import { Button } from '@/app/_components/ui/button'
 import { getProjectById } from '@/app/_data/get-project-by-id'
@@ -21,16 +22,19 @@ const ProjectPage = async ({ params }: { params: Promise<{ id: string }> }) => {
   return (
     <>
       {userId ? <Navbar /> : <NavbarNoAuth />}
-      <div className="space-y-6 overflow-hidden p-8">
-        <Button>
-          <Link href={userId ? '/fornecedor' : '/'}>
-            <div className="flex items-center space-x-2">
-              <ChevronLeftIcon />
-              Voltar
-            </div>
-          </Link>
-        </Button>
-        <ProjectItem project={projeto} />
+      <div className="space-y-6 p-8">
+        <div className="flex justify-between">
+          <Button>
+            <Link href={userId ? '/fornecedor' : '/'}>
+              <div className="flex items-center space-x-2">
+                <ChevronLeftIcon />
+                Voltar
+              </div>
+            </Link>
+          </Button>
+          {!userId && <AddFeedBackButton />}
+        </div>
+        <ProjectItemDetail project={projeto} />
         {userId && (
           <div className="space-x-4">
             <EditProjectButton project={projeto} />
