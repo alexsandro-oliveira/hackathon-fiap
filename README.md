@@ -86,13 +86,14 @@ Priorizamos a construção de um MVP com as funcionalidades essenciais, que são
   - Rota Professor:
 
     - Nesta rota não haverá autenticação neste momento (próximos passos)
-    - Interface de usuário para professores, onde eles poderão acessar todos os projetos.
-    - Página de detalhe do projeto com informações de contato do fornecedor, e adicionar nota de avaliação (para uma próxima entrega)
+    - Interface de usuário para professores, onde poderão acessar todos os projetos.
+    - Página de detalhe do projeto com informações de contato do fornecedor.
+    - Nesta pagina de detalhe os professores também poderão adicionar e comentários/avalição sobre o projeto.
 
   - Rota Voluntário/Fornecedor:
     - Tela de cadastro e Login do fornecedor. (autenticação via google)
     - Tela com a lista dos projetos do fornecedor logado e criação de projetos.
-    - Tela com detalhes do projeto com opção para edição e exclusão.
+    - Tela com detalhes do projeto com opção para edição e exclusão e leitura dos comentários daquele projeto.
     - Todas as telas de fornecedor exigem autenticação.
 
 ### 2. **Backend (integrado pelo Next.js com "server side")**
@@ -111,14 +112,14 @@ Priorizamos a construção de um MVP com as funcionalidades essenciais, que são
 
 ### Entregáveis da Versão v1.0.0
 
-- Acesso do fornecedor por uma rota com autenticação via google.
+- Acesso do fornecedor por uma rota com autenticação via google ou email.
   - Acesso dos fornecedores a tela de consulta de seus projetos
-  - Acesso a tela de criação, edição e deleção.
+  - Acesso a tela de criação, edição, deleção e leitura de comentários.
   - Todas as rotas de fornecedores exigem autenticação.
-  - Acesso ao perfil do fornecedor logado (google) disponibilizado pelo Clerk.
+  - Acesso ao perfil do fornecedor logado disponibilizado pelo Clerk.
 - Acesso do Professor a uma rota sem autenticação
-  - Acesso a tela de listagem com todos os projetos
-  - Acesso a uma tela com detalhes dos projetos e fornecedor.
+  - Acesso a tela de listagem com todos os projetos e contagem de comentários
+  - Acesso a uma tela com detalhes dos projetos e fornecedor e possibilidade de adicionar comentário/avaliação daquele projeto.
 
 ## Instalação
 
@@ -189,7 +190,7 @@ Esse projeto nos deu oportunidade de aplicar e aperfeiçoar os conhecimentos adq
 Para o futuro, teremos as seguintes implementações:
 
 - autenticação de todas as rotas por roles
-- inclusão do sistema de reviews/feedback,
+- melhoria do sistema de reviews/feedback, e autenticação deste elemento.
 - opção para o fornecedor adicionar imagens de seus projetos que pode ser armazenado na S3 da AWS
 - desenvolvimento de funcionalidades para análise de dados
 - inclusão de novas funcionalidades que enriqueçam o sistema para todos os usuários e revolucionem a relação entre escolas e voluntários.
