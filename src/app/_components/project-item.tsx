@@ -6,6 +6,8 @@ import { Label } from './ui/label'
 import Link from 'next/link'
 import { auth } from '@clerk/nextjs/server'
 import { formatDeadline } from '../_utils/format'
+import { db } from '../_lib/prisma'
+import { Badge } from './ui/badge'
 
 interface ProjectItemProps {
   project: Projeto
@@ -13,6 +15,11 @@ interface ProjectItemProps {
 
 const ProjectItem = async ({ project }: ProjectItemProps) => {
   const { userId } = await auth()
+  const comments = await db.feedback.findMany({
+    where: {
+      projectId: project.id,
+    },
+  })
 
   return (
     <>
@@ -34,16 +41,26 @@ const ProjectItem = async ({ project }: ProjectItemProps) => {
                 <Label>Prazo de validade:</Label>
                 <p className="text-sm">{formatDeadline(project.deadline)} </p>
               </div>
-              <div className="text-sm">
-                <p>
-                  Criado{' '}
-                  {formatDistance(new Date(), new Date(project.createdAt), {
-                    locale: ptBR,
-                  })}{' '}
-                  atrás
-                </p>
-              </div>
+              <time
+                className="text-sm"
+                title={format(
+                  new Date(project.createdAt),
+                  "dd 'de' MMMM 'de' yyyy",
+                  { locale: ptBR }
+                )}>
+                Criado{' '}
+                {formatDistance(new Date(), new Date(project.createdAt), {
+                  locale: ptBR,
+                })}{' '}
+                atrás
+              </time>
             </CardFooter>
+            <div className="p-6">
+              <Label className="mr-4">Comentários:</Label>
+              <Badge className="bg-primary hover:bg-primary">
+                {comments.length}
+              </Badge>
+            </div>
           </Link>
         </Card>
       ) : (
@@ -80,6 +97,12 @@ const ProjectItem = async ({ project }: ProjectItemProps) => {
                 atrás
               </time>
             </CardFooter>
+            <div className="p-6">
+              <Label className="mr-4">Comentários:</Label>
+              <Badge className="bg-primary hover:bg-primary">
+                {comments.length}
+              </Badge>
+            </div>
           </Link>
         </Card>
       )}

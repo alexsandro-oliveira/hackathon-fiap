@@ -29,4 +29,6 @@ export const upsertProject = async (params: UpsertProjectParams) => {
     where: { id: params.id ?? '' },
   })
   revalidatePath('/fornecedor')
+  revalidatePath('/projetos')
+  revalidatePath('/')
 }

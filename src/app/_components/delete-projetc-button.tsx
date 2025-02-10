@@ -14,6 +14,7 @@ import {
 import { Button } from '@/app/_components/ui/button'
 
 import { deleteProject } from '../_actions/delete-project'
+import { Trash2Icon } from 'lucide-react'
 
 interface DeleteProjectButtonProps {
   projectId: string
@@ -30,7 +31,10 @@ const DeleteProjectButton = ({ projectId }: DeleteProjectButtonProps) => {
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
-        <Button variant="destructive">Apagar</Button>
+        <Button variant="destructive">
+          <Trash2Icon />
+          Apagar
+        </Button>
       </AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>

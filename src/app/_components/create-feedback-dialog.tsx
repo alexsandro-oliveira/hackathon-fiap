@@ -22,47 +22,48 @@ import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { Textarea } from './ui/textarea'
-import { upsertProject } from '../_actions/upsert-project'
+import { createFeedback } from '../_actions/create-feedback'
 
-interface UpsertFeedbackDialogProps {
+interface CreateFeedbackDialogProps {
   isOpen: boolean
   setIsOpen: (isOpen: boolean) => void
   defaultValues?: FormSchema
-  projectId?: string
+  projectId: string
 }
 
 const formSchema = z.object({
-  userId: z.string().trim().min(1, { message: 'Nome é obrigatório' }),
-  feedback: z.string().trim().min(5, { message: 'Descrição é obrigatório' }),
+  name: z.string().trim().min(1, { message: 'Nome é obrigatório' }),
+  feedback: z.string().trim().min(5, { message: 'Comentário é obrigatório' }),
 })
 
 type FormSchema = z.infer<typeof formSchema>
 
-const UpsertFeedbackDialog = ({
+const CreateFeedbackDialog = ({
   isOpen,
   setIsOpen,
   defaultValues,
   projectId,
-}: UpsertFeedbackDialogProps) => {
+}: CreateFeedbackDialogProps) => {
   const form = useForm<FormSchema>({
     resolver: zodResolver(formSchema),
     defaultValues: defaultValues ?? {
-      userId: '',
+      name: '',
       feedback: '',
     },
   })
 
   const onSubmit = async (data: FormSchema) => {
     try {
-      await upsertFeedback({ ...data, id: projectId })
+      await createFeedback({
+        ...data,
+        projectId,
+      })
       setIsOpen(false)
       form.reset()
     } catch (error) {
       console.error(error)
     }
   }
-
-  const isUpdate = Boolean(projectId)
 
   return (
     <Dialog
@@ -76,7 +77,7 @@ const UpsertFeedbackDialog = ({
       <DialogTrigger asChild></DialogTrigger>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>{isUpdate ? 'Atualizar' : 'Criar'} feedback</DialogTitle>
+          <DialogTitle>Criar comentário sobre o projeto.</DialogTitle>
           <DialogDescription>Insira as informações abaixo</DialogDescription>
         </DialogHeader>
 
@@ -84,12 +85,16 @@ const UpsertFeedbackDialog = ({
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
             <FormField
               control={form.control}
-              name="userId"
+              name="feedback"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Nome</FormLabel>
+                  <FormLabel>Deixe seu comentário</FormLabel>
                   <FormControl>
-                    <Input placeholder="Digite o nome..." {...field} />
+                    <Textarea
+                      className="h-[250px]"
+                      placeholder="Deixe seu comentário..."
+                      {...field}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -98,16 +103,12 @@ const UpsertFeedbackDialog = ({
 
             <FormField
               control={form.control}
-              name="feedback"
+              name="name"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Descrição</FormLabel>
+                  <FormLabel>Seu nome</FormLabel>
                   <FormControl>
-                    <Textarea
-                      className="h-[250px]"
-                      placeholder="Deixe sua avali..."
-                      {...field}
-                    />
+                    <Input placeholder="Digite seu nome..." {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -121,9 +122,7 @@ const UpsertFeedbackDialog = ({
                 </Button>
               </DialogClose>
 
-              <Button type="submit">
-                {isUpdate ? 'Atualizar' : 'Adicionar'}
-              </Button>
+              <Button type="submit">Adicionar</Button>
             </DialogFooter>
           </form>
         </Form>
@@ -132,4 +131,4 @@ const UpsertFeedbackDialog = ({
   )
 }
 
-export default UpsertFeedbackDialog
+export default CreateFeedbackDialog

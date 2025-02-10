@@ -1,6 +1,7 @@
 import AddFeedBackButton from '@/app/_components/add-feedback-button'
 import DeleteProjectButton from '@/app/_components/delete-projetc-button'
 import EditProjectButton from '@/app/_components/edit-project-button'
+import Feedback from '@/app/_components/feedback-item'
 import Navbar from '@/app/_components/nav-bar'
 import NavbarNoAuth from '@/app/_components/nav-bar-no-auth'
 import ProjectItemDetail from '@/app/_components/project-item-detail'
@@ -32,7 +33,7 @@ const ProjectPage = async ({ params }: { params: Promise<{ id: string }> }) => {
               </div>
             </Link>
           </Button>
-          {!userId && <AddFeedBackButton />}
+          {!userId && <AddFeedBackButton projectId={projeto.id} />}
         </div>
         <ProjectItemDetail project={projeto} />
         {userId && (
@@ -41,6 +42,7 @@ const ProjectPage = async ({ params }: { params: Promise<{ id: string }> }) => {
             <DeleteProjectButton projectId={projeto.id} />
           </div>
         )}
+        <Feedback projectId={projeto.id} />
       </div>
     </>
   )

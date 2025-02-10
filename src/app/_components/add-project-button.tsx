@@ -1,6 +1,6 @@
 'use client'
 
-import { ArrowDownUpIcon } from 'lucide-react'
+import { PlusIcon } from 'lucide-react'
 import { Button } from './ui/button'
 
 import { useState } from 'react'
@@ -14,8 +14,8 @@ const AddProjectButton = () => {
       <Button
         className="rounded-full font-bold"
         onClick={() => setDialogIsOpen(true)}>
+        <PlusIcon />
         Adicionar Projeto
-        <ArrowDownUpIcon />
       </Button>
       <UpsertProjectDialog isOpen={dialogIsOpen} setIsOpen={setDialogIsOpen} />
     </>

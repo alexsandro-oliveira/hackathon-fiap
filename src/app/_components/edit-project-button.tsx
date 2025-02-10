@@ -4,6 +4,7 @@ import { Button } from '@/app/_components/ui/button'
 import type { Projeto } from '@prisma/client'
 import { useState } from 'react'
 import UpsertProjectDialog from './upsert-project-dialog'
+import { PencilIcon } from 'lucide-react'
 
 interface EditProjectButtonProps {
   project: Projeto
@@ -15,6 +16,7 @@ const EditProjectButton = ({ project }: EditProjectButtonProps) => {
   return (
     <>
       <Button variant="outline" onClick={() => setDialogIsOpen(true)}>
+        <PencilIcon />
         Editar
       </Button>
       <UpsertProjectDialog
