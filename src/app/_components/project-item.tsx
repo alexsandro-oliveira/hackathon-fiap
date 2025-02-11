@@ -57,9 +57,15 @@ const ProjectItem = async ({ project }: ProjectItemProps) => {
             </CardFooter>
             <div className="p-6">
               <Label className="mr-4">Comentários:</Label>
-              <Badge className="bg-primary hover:bg-primary">
-                {comments.length}
-              </Badge>
+              {comments.length > 0 ? (
+                <Badge className="bg-primary hover:bg-primary">
+                  {comments.length}
+                </Badge>
+              ) : (
+                <Badge className="bg-muted hover:bg-muted">
+                  {comments.length}
+                </Badge>
+              )}
             </div>
           </Link>
         </Card>
@@ -99,9 +105,15 @@ const ProjectItem = async ({ project }: ProjectItemProps) => {
             </CardFooter>
             <div className="p-6">
               <Label className="mr-4">Comentários:</Label>
-              <Badge className="bg-primary hover:bg-primary">
-                {comments.length}
-              </Badge>
+              {comments.length > 0 ? (
+                <Badge className="bg-primary hover:bg-primary">
+                  {comments.length}
+                </Badge>
+              ) : (
+                <Badge className="bg-muted hover:bg-muted">
+                  {comments.length}
+                </Badge>
+              )}
             </div>
           </Link>
         </Card>
