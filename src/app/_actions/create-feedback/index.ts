@@ -30,4 +30,5 @@ export const createFeedback = async (params: createFeedbackParams) => {
     },
   })
   revalidatePath('/projetos')
+  revalidatePath('/fornecedores')
 }
