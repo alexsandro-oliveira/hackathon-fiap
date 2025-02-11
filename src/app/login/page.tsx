@@ -33,7 +33,7 @@ const LoginPage = async () => {
         </Button>
       </SignInButton>
       <Button className="mt-4" variant="outline" asChild>
-        <Link href="/">Voltar</Link>
+        <Link href="/">Voltar para Professor</Link>
       </Button>
     </div>
   )
